@@ -1,0 +1,30 @@
+<main>
+  <section class="main-content">
+    <h1>TODO List</h1>
+    <p class="about">A place to store your todos</p>
+    <form class="form">
+      <input class="input" type="text" name="filter" placeholder="Filter your to-dos" />
+    </form>
+    <ol class="ordered-list">
+      <li class="list-item" *ngFor="let item of todos; index as i">
+        <div class="item-container">
+          <button *ngIf="!item.completed" class="complete-btn" (click)=updateItem(item)>
+            Complete
+          </button>
+          <p class="task" [ngClass]="{ completed: item.completed }">
+            {{ item.task }}
+          </p>
+          <!-- with the ng for of directive, we can make a reference to an idex -->
+          <!-- ; index as i  (line 9) -->
+          <button (click)=deleteItem(item.id)>X</button>
+        </div>
+      </li>
+    </ol>
+    <!-- making a reference to the whole form in general, can now be called by name (todoForm) -->
+    <form class="form" #todoForm="ngForm" (ngSubmit)=addItem(todoForm)>
+      <!-- ngModel takes data submitted at the specific input will have a connection to the name attribute -->
+      <input class="input" type="text" name="task" placeholder="Add your to-do" ngModel />
+      <button class="add-btn">Add</button>
+    </form>
+  </section>
+</main>
